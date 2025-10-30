@@ -1,0 +1,60 @@
+<h1>5 Random Characters From Rick & Morty</h1>
+
+<div class="filters">
+  <label>
+    Status
+    <select [(ngModel)]="statusFilter" (change)="onFilterChange()">
+      <option value="">Sin selección</option>
+      @for (s of statusOpts; track s) {
+      <option [value]="s">{{ s | titlecase }}</option>
+      }
+    </select>
+  </label>
+
+  <label>
+    Gender
+    <select [(ngModel)]="genderFilter" (change)="onFilterChange()">
+      <option value="">Sin selección</option>
+      @for (g of genderOpts; track g) {
+      <option [value]="g">{{ g | titlecase }}</option>
+      }
+    </select>
+  </label>
+</div>
+
+@if (loading()) {
+<p class="loading">Cargando…</p>
+} @else {
+  <div class="content">
+<section class="grid">
+  @for (c of cards(); track c.id) {
+  <article class="card" aria-label="{{c.name}}">
+    <div class="thumb-wrap">
+      <img class="thumb" [src]="c.image" [alt]="c.name" loading="lazy" />
+    </div>
+
+    <div class="card-content">
+      <h2 class="title">{{ c.name }}</h2>
+
+      <p class="status">
+        <span class="dot" [style.background]="statusColor(c.status)"></span>
+        <strong>{{ c.status }}</strong>
+        <span class="sep">-</span>
+        <span>{{ c.species }}</span>
+      </p>
+
+      <div class="label">Last known location:</div>
+      <div class="value">{{ c.locationName }}</div>
+
+      <div class="label mt">First seen in:</div>
+      <div class="value">{{ c.firstSeen }}</div>
+    </div>
+  </article>
+  }
+</section>
+</div>
+}
+
+<footer>
+  Hecho por Alberto Amo Marín - Prueba Técnica Aramis Group (2025)
+</footer>
