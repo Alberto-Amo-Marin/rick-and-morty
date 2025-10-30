@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { forkJoin, of, switchMap, map } from 'rxjs';
 import { RickMortyService } from './services/rick-morty.service';
 import type { Character, Status, Filters } from './core/models/character/character';
+import type { CharacterCard } from './core/models/character/card';
+import { FiltersComponent } from './components/filters/filters.component';
+import { CharacterCardsComponent } from './components/character-cards/character-cards.component';
 
 type Card = {
   id: number;
@@ -18,13 +21,13 @@ type Card = {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FiltersComponent, CharacterCardsComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class AppComponent {
   loading = signal(true);
-  cards = signal<Card[]>([]);
+  cards = signal<CharacterCard[]>([]);
 
   statusOpts = ['alive', 'dead', 'unknown'];
   genderOpts = ['female', 'male', 'genderless', 'unknown'];
@@ -41,11 +44,10 @@ export class AppComponent {
     this.load();
   }
 
-  onFilterChange() {
-    localStorage.setItem(
-      'rnm_filters',
-      JSON.stringify({ status: this.statusFilter || null, gender: this.genderFilter || null })
-    );
+  onFiltersChange(f: Filters) {
+    this.statusFilter = f.status ?? null;
+    this.genderFilter = f.gender ?? null;
+    localStorage.setItem('rnm_filters', JSON.stringify({ status: this.statusFilter, gender: this.genderFilter }));
     this.load();
   }
 
@@ -69,7 +71,7 @@ export class AppComponent {
         }),
         map(({ chars, epNames }) =>
           (chars || []).map(
-            (c, i): Card => ({
+            (c, i): CharacterCard => ({
               id: c.id,
               name: c.name,
               status: c.status,

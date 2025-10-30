@@ -1,0 +1,22 @@
+<div class="filters">
+  <label>
+    Status
+    <select [(ngModel)]="status" (change)="onChange()">
+      <option value="">Sin selección</option>
+      @for (s of statusOpts; track s) {
+        <option [value]="s">{{ s | titlecase }}</option>
+      }
+    </select>
+  </label>
+
+  <label>
+    Gender
+    <select [(ngModel)]="gender" (change)="onChange()">
+      <option value="">Sin selección</option>
+      @for (g of genderOpts; track g) {
+        <option [value]="g">{{ g | titlecase }}</option>
+      }
+    </select>
+  </label>
+</div>
+
