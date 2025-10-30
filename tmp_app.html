@@ -1,10 +1,10 @@
-<h1>5 Random Characters From Rick & Morty</h1>
+﻿<h1>5 Random Characters From Rick & Morty</h1>
 
 <div class="filters">
   <label>
     Status
     <select [(ngModel)]="statusFilter" (change)="onFilterChange()">
-      <option value="">Sin selección</option>
+      <option value="">Sin selecciÃ³n</option>
       @for (s of statusOpts; track s) {
       <option [value]="s">{{ s | titlecase }}</option>
       }
@@ -14,7 +14,7 @@
   <label>
     Gender
     <select [(ngModel)]="genderFilter" (change)="onFilterChange()">
-      <option value="">Sin selección</option>
+      <option value="">Sin selecciÃ³n</option>
       @for (g of genderOpts; track g) {
       <option [value]="g">{{ g | titlecase }}</option>
       }
@@ -23,7 +23,7 @@
 </div>
 
 @if (loading()) {
-<p class="loading">Cargando…</p>
+<p class="loading">Cargandoâ€¦</p>
 } @else {
   <div class="content">
 <section class="grid">
@@ -56,6 +56,5 @@
 }
 
 <footer>
-  Hecho por Alberto Amo Marín - Prueba Técnica Aramis Group (2025)
+  Hecho por Alberto Amo MarÃ­n - Prueba TÃ©cnica Aramis Group (2025)
 </footer>
-

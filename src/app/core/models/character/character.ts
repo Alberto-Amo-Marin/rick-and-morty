@@ -10,6 +10,7 @@ export interface Character {
   image: string;
   origin?: { name: string };
   location?: { name: string };
+  episode?: string[];
 }
 
 export interface ApiInfo { count: number; pages: number; next: string|null; prev: string|null; }
